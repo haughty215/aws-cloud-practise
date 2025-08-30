@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS Study Journal</title>
+  <meta name="description" content="A clean, organized AWS study journal with topics, subtopics, and hands-on labs.">
+  <link rel="icon" href="/assets/aws-favicon.png">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Prism.js for code highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900">
+<header class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-2 font-semibold text-lg">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+        AWS Study Journal
+      </a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="/" class="hover:text-orange-600">Home</a>
+        <a href="/topics/index.html" class="hover:text-orange-600">Topics</a>
+        <a href="/labs/index.html" class="hover:text-orange-600">Labs</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="hover:text-orange-600">Reflections</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden px-3 py-2 rounded-lg border">Menu</button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden border-t bg-white">
+    <div class="px-4 py-3 space-y-2">
+      <a href="/" class="block">Home</a>
+      <a href="/topics/index.html" class="block">Topics</a>
+      <a href="/labs/index.html" class="block">Labs</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="block">Reflections</a>
+    </div>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <h1 class="text-3xl font-bold">Lab: EC2 Starter</h1>
+  <p class="mt-2 text-gray-700">Launch a t3.micro in a public subnet, secure with SG + Key Pair, and SSH into it.</p>
+
+  <div class="mt-8 grid gap-4">
+    
+        <div class="rounded-2xl border bg-white p-5">
+          <h3 class="font-semibold">Step 1: Create Key Pair</h3>
+          <p class="text-sm text-gray-700 mt-1">Create and save locally with proper permissions.</p>
+          <pre class="language-bash rounded-lg"><code class="language-bash">aws ec2 create-key-pair --key-name demo --query 'KeyMaterial' --output text > demo.pem && chmod 400 demo.pem</code></pre>
+        </div>
+        
+        <div class="rounded-2xl border bg-white p-5">
+          <h3 class="font-semibold">Step 2: Security Group</h3>
+          <p class="text-sm text-gray-700 mt-1">Allow SSH from your IP.</p>
+          <pre class="language-bash rounded-lg"><code class="language-bash">aws ec2 create-security-group --group-name ssh-sg --description 'Allow SSH' --vpc-id <vpc-id></code></pre>
+        </div>
+        
+        <div class="rounded-2xl border bg-white p-5">
+          <h3 class="font-semibold">Step 3: Run Instance</h3>
+          <p class="text-sm text-gray-700 mt-1">Launch instance in public subnet.</p>
+          <pre class="language-bash rounded-lg"><code class="language-bash">aws ec2 run-instances --image-id <ami> --instance-type t3.micro --subnet-id <subnet-id> --security-group-ids <sg-id> --key-name demo</code></pre>
+        </div>
+        
+  </div>
+  
+
+  <div class="mt-10">
+    <a href="/labs/index.html" class="inline-block px-4 py-2 rounded-xl bg-white border hover:bg-gray-50">Back to Labs</a>
+  </div>
+</main>
+<footer class="mt-16 border-t">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-sm text-gray-600">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <p>&copy; <span id="year"></span> AWS Study Journal. Built with HTML, Tailwind, and JavaScript. Hosted on GitHub Pages.</p>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-orange-600" href="https://aws.amazon.com/" target="_blank" rel="noopener">AWS</a>
+        <a class="hover:text-orange-600" href="https://docs.aws.amazon.com/" target="_blank" rel="noopener">AWS Docs</a>
+        <a class="hover:text-orange-600" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+</body>
+</html>
